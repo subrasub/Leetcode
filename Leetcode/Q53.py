@@ -4,13 +4,22 @@ class Solution:
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) == 1:
-            return nums[0]
-        elif len(nums)== 0:
-            return 0
+        if nums==[]:
+            return
         
-        for i in range(1,len(nums)):
-            if nums[i-1]>0:
-                nums[i]+=nums[i-1]
-            print(nums[i], nums[i-1], '\n')
-        return max(nums)
+        elif len(nums)==1:
+            return nums[0]
+        
+        elif max(nums)<0:
+            return max(nums)
+        
+        s=0;
+        l_max = 0;
+        
+        for i in range(len(nums)):
+            if s+nums[i]>0:
+                s+=nums[i] 
+                l_max = max(s, l_max)
+            else:
+                s = 0
+        return l_max
