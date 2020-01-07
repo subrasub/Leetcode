@@ -11,6 +11,8 @@ class Solution:
             return 0
         
         def dfs(node, res):
+            if not node:
+                return 0
             if node:
                 res = res*10 + node.val
                 
