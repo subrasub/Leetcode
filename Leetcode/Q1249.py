@@ -1,24 +1,24 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        stack = []
-        res = []
+        s = list(s)
+        count = 0
         
-        for i in range(0,len(s)):
+        for i in range(len(s)):
             if s[i] == '(':
-                stack.append(i)
-                res += s[i]
-                
+                count += 1
             elif s[i] == ')':
-                if not stack:
-                    res += '*'
+                if count == 0:
+                    s[i] = ""
                 else:
-                    stack.pop()
-                    res += s[i]
-            else:
-                res += s[i]
+                    count -= 1
         
-        for i in stack:
-            res[i] = '*'
-            
-        return ''.join(k for k in res if k!='*')
-                    
+        i = len(s) - 1
+        
+        while i>=0 and count>0:
+            if s[i] == '(':
+                s[i] = ""
+                count -= 1
+            i -= 1
+        
+        return ''.join(s)
+
