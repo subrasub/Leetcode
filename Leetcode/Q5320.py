@@ -1,5 +1,3 @@
-import operator
-
 class Solution:
     def filterRestaurants(self, restaurants: List[List[int]], veganFriendly: int, maxPrice: int, maxDistance: int) -> List[int]:
         res = []
@@ -13,11 +11,9 @@ class Solution:
                 if((item[3] <= maxPrice) and (item[4] <= maxDistance)):
                     res.append(item)
         
-        res = sorted(res, key=operator.itemgetter(1, 0))
+        temp = sorted(res, key=lambda k: (k[1], k[0]), reverse=True)
         
-        for i in res:
+        for i in temp:
             final.append(i[0])
             
         return final
-    
-                
