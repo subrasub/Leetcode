@@ -1,25 +1,12 @@
+# https://leetcode.com/problems/maximum-subarray
+
 class Solution:
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if nums==[]:
-            return
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxCurrent = maxGlobal = nums[0]
         
-        elif len(nums)==1:
-            return nums[0]
+        for i in range(1, len(nums)):
+            maxCurrent = max(nums[i], maxCurrent+nums[i])
+            if maxCurrent > maxGlobal:
+                maxGlobal = maxCurrent
         
-        elif max(nums)<0:
-            return max(nums)
-        
-        s=0;
-        l_max = 0;
-        
-        for i in range(len(nums)):
-            if s+nums[i]>0:
-                s+=nums[i] 
-                l_max = max(s, l_max)
-            else:
-                s = 0
-        return l_max
+        return maxGlobal
