@@ -6,17 +6,22 @@
 #         self.right = right
 class Solution:
   def closestValue(self, root: TreeNode, target: float) -> int:
-    def dfs(node):
-      if not node:
-        return
-      if (abs(target-node.val) < self.minGap):
-        self.minGap = abs(target-node.val)
-        self.res = node.val
-      dfs(node.left)
-      dfs(node.right)
+    if not root:
+      return
 
-    self.minGap = float('inf')
-    self.res = 0
-    dfs(root)
+    stack = []
+    prev = float('-inf')
 
-    return self.res
+    while(stack or root):
+      while root:
+        stack.append(root)
+        root = root.left
+      root = stack.pop()
+
+      if prev<=target and target<root.val:
+        return min(root.val, prev, key = lambda x: abs(target - x))
+
+      prev = root.val
+      root = root.right
+
+    return prev
