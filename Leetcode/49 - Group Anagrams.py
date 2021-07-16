@@ -1,13 +1,10 @@
 # https://leetcode.com/problems/group-anagrams/
-
+from collections import defaultdict
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        table = {}
+        table = defaultdict(list)
+
         for word in strs:
-            val = ''.join(sorted(list(word)))
-            if val not in table: 
-                table[val] = [word]
-            else:
-                table[val].append(word)
-        
-        return table.values()   
+            table[tuple(sorted(word))].append(word)
+
+        return table.values()
