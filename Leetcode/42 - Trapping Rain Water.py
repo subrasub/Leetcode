@@ -4,20 +4,22 @@ class Solution:
             return 0
 
         res = 0
-        leftMax = [0]*len(height)
-        rightMax = [0]*len(height)
         maxL = maxR = 0
+        left, right = 0, len(height)-1
 
-        for i in range(len(height)):
-            maxL = max(maxL, height[i])
-            leftMax[i] = maxL
+        while left<right:
+            if height[left]<height[right]:
+                if height[left] >= maxL:
+                    maxL = height[left]
+                else:
+                    res += maxL - height[left]
 
-        for i in range(len(height)-1, -1, -1):
-            maxR = max(maxR, height[i])
-            rightMax[i] = maxR
+                left += 1
+            else:
+                if height[right] >= maxR:
+                    maxR = height[right]
+                else:
+                    res += maxR - height[right]
 
-        for index in range(len(height)):
-            res += min(leftMax[index], rightMax[index]) - height[index]
-
+                right -= 1
         return res
-
