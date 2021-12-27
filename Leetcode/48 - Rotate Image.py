@@ -3,20 +3,17 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        def transpose(matrix, n):
-            for i in range(n):
-                for j in range(i, n):
-                    temp = matrix[i][j]
-                    matrix[i][j] = matrix[j][i]
-                    matrix[j][i] = temp
+        left, right = 0, len(matrix)-1
 
-        def reverse(matrix, n):
-            for i in range(n):
-                for j in range(n//2):
-                    temp = matrix[i][j]
-                    matrix[i][j] = matrix[i][-j-1]
-                    matrix[i][-j-1] = temp
+        while left<right:
+            for i in range(right-left):
+                top, bottom = left, right
 
-        n = len(matrix)
-        transpose(matrix, n)
-        reverse(matrix, n)
+                topLeft = matrix[top][left + i]
+                matrix[top][left + i] = matrix[bottom - i][left]
+                matrix[bottom - i][left] = matrix[bottom][right - i]
+                matrix[bottom][right - i] = matrix[top + i][right]
+                matrix[top + i][right] = topLeft
+
+            left += 1
+            right -= 1
