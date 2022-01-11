@@ -3,19 +3,22 @@
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
+        stack = []
         res = []
-        
-        # use backtracking to add parantheses 
-        def compute(paran, left, right):
-            if len(paran) == n*2:
-                res.append(paran)
-                return
-            
-            if left < n:
-                compute(paran+'(', left+1, right)
-                
-            if right < left:
-                compute(paran+')', left, right+1)
-        
-        compute('', 0, 0)
+
+        def backtrack(opened, closed):
+            if opened==closed==n:
+                res.append(''.join(stack))
+
+            if opened<n:
+                stack.append('(')
+                backtrack(opened+1, closed)
+                stack.pop()
+
+            if closed<opened:
+                stack.append(')')
+                backtrack(opened, closed+1)
+                stack.pop()
+
+        backtrack(0, 0)
         return res
