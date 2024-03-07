@@ -3,23 +3,19 @@ class Solution:
         if not height:
             return 0
 
-        res = 0
-        maxL = maxR = 0
         left, right = 0, len(height)-1
+        maxL, maxR = height[left], height[right]
+        res = 0
+
 
         while left<right:
-            if height[left]<height[right]:
-                if height[left] >= maxL:
-                    maxL = height[left]
-                else:
-                    res += maxL - height[left]
-
+            if maxL < maxR:
                 left += 1
+                maxL = max(maxL, height[left])
+                res += maxL - height[left]
             else:
-                if height[right] >= maxR:
-                    maxR = height[right]
-                else:
-                    res += maxR - height[right]
-
                 right -= 1
+                maxR = max(maxR, height[right])
+                res += maxR - height[right]
+        
         return res
